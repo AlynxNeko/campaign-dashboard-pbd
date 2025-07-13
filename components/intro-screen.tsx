@@ -26,7 +26,7 @@ export default function IntroScreen() {
         <motion.img
           src="/logo.png"
           alt="Logo"
-          className="w-20 h-20 object-contain"
+          className="w-40 h-40 object-contain"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
