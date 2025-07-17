@@ -165,7 +165,7 @@ export default function MarketingDashboard() {
   const totalContent = filteredData.reduce((sum, item) => sum + item.content, 0)
   const totalCheckin = filteredData.reduce((sum, item) => sum + item.checkIn, 0)
   const validCTR = filteredData.filter((item) => item.ctr !== 0)
-  const totalCTR = validCTR.reduce((sum, item) => sum + item.ctr, 0) / (validCTR.length || 1)
+  const totalCTR = validCTR.reduce((sum, item) => sum + item.ctr, 0) / (validCTR.length || 1) / 100
 
   const validCPL = filteredData.filter((item) => item.cpl !== 0)
   const totalCPL = validCPL.reduce((sum, item) => sum + item.cpl, 0) / (validCPL.length || 1)
