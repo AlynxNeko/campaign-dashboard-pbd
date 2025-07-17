@@ -17,9 +17,12 @@ export default function IntroScreen({ onFinish }: IntroScreenProps) {
 
   useEffect(() => {
     const timers = allWords.map((_, i) =>
-      setTimeout(() => {
-        setVisibleWords((prev) => prev + 1)
-      }, 600 + i * 500)
+      setTimeout(
+        () => {
+          setVisibleWords((prev) => prev + 1)
+        },
+        600 + i * 500,
+      ),
     )
 
     const totalDuration = 600 + allWords.length * 500 + 500 // buffer
@@ -47,20 +50,23 @@ export default function IntroScreen({ onFinish }: IntroScreenProps) {
           <div className="flex items-center gap-12">
             {/* Big Logo */}
             <motion.img
-              src="/logo.png"
+              src="/pbdlogo.png?height=200&width=200" // Using placeholder for logo.png
               alt="Logo"
               className="w-[200px] h-[200px] object-contain"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             />
-
             {/* Text block */}
             <div className="text-left text-6xl font-bold leading-tight">
               <div className="flex gap-4 mb-2">
                 <div className="w-[120px]">
                   {visibleWords > 0 ? (
-                    <motion.span initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                    <motion.span
+                      initial={{ opacity: 0, y: 24 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
                       {line1[0]}
                     </motion.span>
                   ) : (
@@ -69,7 +75,11 @@ export default function IntroScreen({ onFinish }: IntroScreenProps) {
                 </div>
                 <div className="w-[120px] ml-4">
                   {visibleWords > 1 ? (
-                    <motion.span initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                    <motion.span
+                      initial={{ opacity: 0, y: 24 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
                       {line1[1]}
                     </motion.span>
                   ) : (
@@ -80,7 +90,11 @@ export default function IntroScreen({ onFinish }: IntroScreenProps) {
               <div className="flex gap-4 -mt-3">
                 <div className="w-[120px]">
                   {visibleWords > 2 ? (
-                    <motion.span initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                    <motion.span
+                      initial={{ opacity: 0, y: 24 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
                       {line2[0]}
                     </motion.span>
                   ) : (
