@@ -51,7 +51,7 @@ export default function IntroScreen({ onFinish }: IntroScreenProps) {
           <div className="flex items-center gap-12">
             {/* Big Logo */}
             <motion.img
-              src="/placeholder.svg?height=200&width=200" // Using placeholder for logo.png
+              src="/pbdlogo.png?height=200&width=200" // Using placeholder for logo.png
               alt="Logo"
               className="w-[200px] h-[200px] object-contain"
               initial={{ opacity: 0, scale: 0.9 }}
