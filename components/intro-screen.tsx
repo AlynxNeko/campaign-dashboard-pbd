@@ -41,7 +41,8 @@ export default function IntroScreen({ onFinish }: IntroScreenProps) {
     <AnimatePresence>
       {!isExiting && (
         <motion.div
-          className="fixed inset-0 z-50 bg-black text-white flex items-center justify-center px-6 font-inter"
+          // Removed font-inter class here
+          className="fixed inset-0 z-50 bg-black text-white flex items-center justify-center px-6"
           initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
@@ -50,7 +51,7 @@ export default function IntroScreen({ onFinish }: IntroScreenProps) {
           <div className="flex items-center gap-12">
             {/* Big Logo */}
             <motion.img
-              src="/pbdlogo.png?height=200&width=200" // Using placeholder for logo.png
+              src="/placeholder.svg?height=200&width=200" // Using placeholder for logo.png
               alt="Logo"
               className="w-[200px] h-[200px] object-contain"
               initial={{ opacity: 0, scale: 0.9 }}
