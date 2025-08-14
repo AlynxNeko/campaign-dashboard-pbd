@@ -197,7 +197,7 @@ export default function MarketingDashboard() {
     { title: "Clicks", actual: totalClicks },
     { title: "CPC", actual: totalCPC, unit: "Rp" },
     { title: "CPR", actual: totalCPR, unit: "Rp" },
-    { title: "CTR2", actual: totalCTR2 * 100, unit: "%" },
+    { title: "CTR2", actual: totalCTR2, unit: "%" },
     { title: "Reg Count", actual: totalReg },
     { title: "Sen Count", actual: totalSen },
     { title: "Omzet", actual: totalOmzet, unit: "Rp" },

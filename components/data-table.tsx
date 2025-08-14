@@ -76,7 +76,7 @@ export function DataTable({ data }: DataTableProps) {
           row.click,
           row.cpc,
           row.cpr,
-          row.ctr2,
+          typeof row.ctr2 === "number" ? row.ctr2.toFixed(1).replace(".", ",") + "%" : row.ctr2, 
           row.reg,
           row.sen,
           row.omz,
