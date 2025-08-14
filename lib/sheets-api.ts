@@ -50,7 +50,12 @@ export function transformSheetsData(rawData: any[][]): CampaignData[] {
   return rows
     .filter((row) => {
       const date = row[headerIndex["DATE"]] || row[3] // fallback index if header messed up
-      return date && date.toString().trim() !== "" && date !== "Results / Month"
+      return (
+        date &&
+        date.toString().trim() !== "" &&
+        date !== "Results / Month" &&
+        row[headerIndex["CAMPAIGN NAME"]] !== "CAMPAIGN NAME"
+      )
     })
     .map((row) => {
       // Carry down campaign & cabang
