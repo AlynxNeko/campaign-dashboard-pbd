@@ -1,20 +1,30 @@
 export interface CampaignData {
-  campaign: string
-  cabang: string
-  week: string
-  date: string
-  content: number
-  ctr: number
-  cpl: number
-  wamasuk: number
-  reservasi: number
-  resRate: number
-  conRate: number
-  cac: number
-  checkIn: number
-  budgetBulanan?: string
-  budgetMingguan?: string
-  targetCAC?: string
+  campaign: string;
+  cabang: string;
+  week: string;
+  date: string;
+  content: number;
+  ctr: number;
+  cost: number;
+  reach: number;
+  impressions: number;
+  cpm: number;
+  click: number;
+  cpc: number;
+  wamasuk: number;
+  cpr: number;
+  ctr2: number;
+  reservasi: number;
+  resRate: number;
+  conRate: number;
+  cac: number;
+  checkIn: number;
+  targetCAC?: number;
+  budgetMingguan?: string;
+  budgetBulanan?: string;
+  reg?: number;
+  sen?: number;
+  omz?: number;
 }
 
 export interface TargetData {
