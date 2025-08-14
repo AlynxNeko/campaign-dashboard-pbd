@@ -3,7 +3,7 @@ import type { CampaignData } from "./types"
 const GOOGLE_SHEETS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_SHEETS_API_KEY
 const SPREADSHEET_ID = process.env.NEXT_PUBLIC_SPREADSHEET_ID
 
-export async function fetchSheetsData(range = "2025!A:Z") {
+export async function fetchSheetsData(range = "2025!A:AK") {
   if (!GOOGLE_SHEETS_API_KEY || !SPREADSHEET_ID) {
     throw new Error("Missing Google Sheets API configuration")
   }
