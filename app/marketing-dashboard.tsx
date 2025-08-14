@@ -16,6 +16,7 @@ import { MultiSelectFilter } from "../components/multi-select-filter"
 import { fetchSheetsData, transformSheetsData } from "../lib/sheets-api"
 import type { CampaignData, MetricCard, Filters } from "../lib/types"
 import { TargetModal } from "../components/target-modal"
+import { DynamicTrendsChart } from "../components/dynamic-trends-chart"
 
 type TargetData = {
   wamasuk: number
@@ -167,59 +168,41 @@ export default function MarketingDashboard() {
   const validCTR = filteredData.filter((item) => item.ctr !== 0)
   const totalCTR = validCTR.reduce((sum, item) => sum + item.ctr, 0) / (validCTR.length || 1) / 100
 
-  const validCPL = filteredData.filter((item) => item.cpl !== 0)
-  const totalCPL = validCPL.reduce((sum, item) => sum + item.cpl, 0) / (validCPL.length || 1)
-
   const validCAC = filteredData.filter((item) => item.cac !== 0)
   const totalCAC = validCAC.reduce((sum, item) => sum + item.cac, 0) / (validCAC.length || 1)
   const totalTargetCAC =
     filteredData.reduce((sum, item) => sum + Number.parseFloat(item.targetCAC || "0"), 0) / filteredData.length || 0
+  const totalCost = filteredData.reduce((sum, item) => sum + item.cost, 0);
+  const totalReach = filteredData.reduce((sum, item) => sum + item.reach, 0);
+  const totalImpressions = filteredData.reduce((sum, item) => sum + item.impressions, 0);
+  const totalClicks = filteredData.reduce((sum, item) => sum + item.click, 0);
+  const totalCPC = totalClicks !== 0 ? totalCost / totalClicks : 0;
+  const totalCPR = totalReservasi !== 0 ? totalCost / totalReservasi : 0;
+  const totalCTR2 = filteredData.filter((item) => item.ctr2 !== 0).reduce((sum, item) => sum + item.ctr2, 0) / (filteredData.filter((item) => item.ctr2 !== 0).length || 1);
+  const totalReg = filteredData.reduce((sum, item) => sum + (item.reg || 0), 0);
+  const totalSen = filteredData.reduce((sum, item) => sum + (item.sen || 0), 0);
+  const totalOmzet = filteredData.reduce((sum, item) => sum + (item.omz || 0), 0);
+
 
   const metrics: MetricCard[] = [
-    {
-      title: "WA Masuk",
-      actual: totalWAMasuk,
-      target: targets.wamasuk,
-      achievement: (totalWAMasuk / targets.wamasuk) * 100,
-      change: ((totalWAMasuk - targets.wamasuk) / targets.wamasuk) * 100,
-    },
-    {
-      title: "Reservasi",
-      actual: totalReservasi,
-      target: targets.reservasi,
-      achievement: (totalReservasi / targets.reservasi) * 100,
-      change: ((totalReservasi - targets.reservasi) / targets.reservasi) * 100,
-    },
-    {
-      title: "Check-in",
-      actual: Math.round(totalCheckin),
-      target: targets.checkin,
-      achievement: (Math.round(totalCheckin) / targets.checkin) * 100,
-      change: ((Math.round(totalCheckin) - targets.checkin) / targets.checkin) * 100,
-    },
-    {
-      title: "Content",
-      actual: totalContent,
-      target: targets.content,
-      achievement: (totalContent / targets.content) * 100,
-      change: ((totalContent - targets.content) / targets.content) * 100,
-    },
-    {
-      title: "CTR",
-      actual: totalCTR * 100, // Display as percentage
-      unit: "%",
-    },
-    {
-      title: "CPL",
-      actual: totalCPL,
-      unit: "Rp",
-    },
-    {
-      title: "CAC",
-      actual: totalCAC,
-      unit: "Rp",
-    },
-  ]
+    { title: "WA Masuk", actual: totalWAMasuk, target: targets.wamasuk, achievement: (totalWAMasuk / targets.wamasuk) * 100, change: ((totalWAMasuk - targets.wamasuk) / targets.wamasuk) * 100 },
+    { title: "Reservasi", actual: totalReservasi, target: targets.reservasi, achievement: (totalReservasi / targets.reservasi) * 100, change: ((totalReservasi - targets.reservasi) / targets.reservasi) * 100 },
+    { title: "Check-in", actual: Math.round(totalCheckin), target: targets.checkin, achievement: (Math.round(totalCheckin) / targets.checkin) * 100, change: ((Math.round(totalCheckin) - targets.checkin) / targets.checkin) * 100 },
+    { title: "Content", actual: totalContent, target: targets.content, achievement: (totalContent / targets.content) * 100, change: ((totalContent - targets.content) / targets.content) * 100 },
+    { title: "CTR", actual: totalCTR * 100, unit: "%" },
+    { title: "CAC", actual: totalCAC, unit: "Rp" },
+    { title: "Cost", actual: totalCost, unit: "Rp" },
+    { title: "Reach", actual: totalReach },
+    { title: "Impressions", actual: totalImpressions },
+    { title: "Clicks", actual: totalClicks },
+    { title: "CPC", actual: totalCPC, unit: "Rp" },
+    { title: "CPR", actual: totalCPR, unit: "Rp" },
+    { title: "CTR2", actual: totalCTR2 * 100, unit: "%" },
+    { title: "Reg Count", actual: totalReg },
+    { title: "Sen Count", actual: totalSen },
+    { title: "Omzet", actual: totalOmzet, unit: "Rp" },
+  ];
+
 
   const performanceData = [
     { name: "WA Masuk", actual: totalWAMasuk, target: targets.wamasuk },
@@ -239,6 +222,27 @@ export default function MarketingDashboard() {
     week: item.week,
     rate: item.resRate,
   }))
+
+  // Engagement Trends: Reach, Impressions, Clicks
+  const engagementTrends = filteredData.map(item => ({
+    week: item.week,
+    reach: item.reach,
+    impressions: item.impressions,
+    clicks: item.click,
+  }));
+
+  // Cost Efficiency Trends: CPC, CPR
+  const costTrends = filteredData.map(item => ({
+    week: item.week,
+    cpc: item.click !== 0 ? item.cost / item.click : 0,
+    cpr: item.reservasi !== 0 ? item.cost / item.reservasi : 0,
+  }));
+
+  // Revenue Trends: Omzet
+  const revenueTrends = filteredData.map(item => ({
+    week: item.week,
+    omzet: item.omz,
+  }));
 
   const funnelData = {
     wamasuk: totalWAMasuk,
@@ -379,6 +383,18 @@ export default function MarketingDashboard() {
               </CardContent>
             </Card>
           </div>
+        </div>
+        <div className="grid grid-cols-1 xl:grid-cols-1 gap-6">
+          <DynamicTrendsChart
+            data={engagementTrends}
+            title="Engagement Trends"
+            description="Reach, Impressions, and Clicks over time"
+            series={{
+              reach: { label: "Reach", color: "hsl(var(--chart-4))" },
+              impressions: { label: "Impressions", color: "hsl(var(--chart-5))" },
+              click: { label: "Clicks", color: "hsl(var(--chart-6))" },
+            }}
+          />
         </div>
         {/* Trends and Insights */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
