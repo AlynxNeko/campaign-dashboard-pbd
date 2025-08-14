@@ -66,7 +66,7 @@ export function transformSheetsData(rawData: any[][]): CampaignData[] {
         lastCabang;
 
       const wamasuk =
-        Number.parseInt(row[headerIndex["WA MASUK / RESULT"]] || row[15] || "0");
+        Number.parseInt(row[headerIndex["WA MASUK / RESULT"]] || row[11] || "0");
       const reservasi =
         Number.parseInt(row[headerIndex["JUMLAH RESERVASI"]] || row[21] || "0");
       const checkIn =

@@ -17,7 +17,7 @@ export function DataTable({ data }: DataTableProps) {
   const filteredData = data.filter(
     (item) =>
       item.campaign.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.cabang.toLowerCase().includes(searchTerm.toLowerCase())
+      item.cabang.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
   const exportToCSV = () => {
@@ -27,26 +27,11 @@ export function DataTable({ data }: DataTableProps) {
       "Cabang",
       "Date Range",
       "Content",
-      "WA Masuk",
-      "Reservasi",
-      "Check-In",
+      "WA",
       "Res Rate%",
-      "Con Rate%",
-      "CAC",
       "Budget Bulanan",
       "Budget Mingguan",
-      "Target CAC",
-      "Reach",
-      "Impressions",
-      "CPM",
-      "Clicks",
-      "CPC",
-      "CPR",
-      "CTR2",
-      "Regular Count",
-      "Senior Count",
-      "Omzet",
-      "Cost",
+      "Target CAC per Reservasi",
     ]
 
     const csvContent = [
@@ -59,26 +44,11 @@ export function DataTable({ data }: DataTableProps) {
           row.date,
           row.content,
           row.wamasuk,
-          row.reservasi,
-          row.checkIn,
-          row.resRate.toFixed(1).replace(".", ",") + "%",
-          row.conRate.toFixed(1).replace(".", ",") + "%",
-          row.cac.toLocaleString("id-ID"),
+          row.resRate.toFixed(0).replace(".", ",") + "%",
           row.budgetBulanan || "",
           row.budgetMingguan || "",
           row.targetCAC || "",
-          row.reach,
-          row.impressions,
-          row.cpm,
-          row.click,
-          row.cpc,
-          row.cpr,
-          row.ctr2,
-          row.reg,
-          row.sen,
-          row.omz,
-          row.cost,
-        ].join(",")
+        ].join(","),
       ),
     ].join("\n")
 
@@ -97,16 +67,14 @@ export function DataTable({ data }: DataTableProps) {
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>Detailed Data Table</CardTitle>
-            <CardDescription>
-              Campaign Dashboard - Last updated: {new Date().toLocaleString("id-ID")}
-            </CardDescription>
+            <CardDescription>Campaign Dashboard - Last updated: {new Date().toLocaleString("id-ID")}</CardDescription>
           </div>
           <Button onClick={exportToCSV} variant="outline" size="sm">
             <Download className="h-4 w-4 mr-2" />
             Download CSV
           </Button>
         </div>
-        <div className="relative mt-2">
+        <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search..."
@@ -118,14 +86,19 @@ export function DataTable({ data }: DataTableProps) {
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
+          <table className="w-full border-collapse">
             <thead>
               <tr className="border-b">
-                {headers.map((header) => (
-                  <th key={header} className="text-left p-2 font-medium">
-                    {header}
-                  </th>
-                ))}
+                <th className="text-left p-2 font-medium">Campaign</th>
+                <th className="text-left p-2 font-medium">Week</th>
+                <th className="text-left p-2 font-medium">Cabang</th>
+                <th className="text-left p-2 font-medium">Date Range</th>
+                <th className="text-left p-2 font-medium">Content</th>
+                <th className="text-left p-2 font-medium">WA</th>
+                <th className="text-left p-2 font-medium">Res Rate%</th>
+                <th className="text-left p-2 font-medium">Budget Bulanan</th>
+                <th className="text-left p-2 font-medium">Budget Mingguan</th>
+                <th className="text-left p-2 font-medium">Target CAC per Reservasi</th>
               </tr>
             </thead>
             <tbody>
@@ -137,25 +110,10 @@ export function DataTable({ data }: DataTableProps) {
                   <td className="p-2">{row.date}</td>
                   <td className="p-2">{row.content.toLocaleString("id-ID")}</td>
                   <td className="p-2">{row.wamasuk.toLocaleString("id-ID")}</td>
-                  <td className="p-2">{row.reservasi.toLocaleString("id-ID")}</td>
-                  <td className="p-2">{row.checkIn.toLocaleString("id-ID")}</td>
-                  <td className="p-2">{row.resRate.toFixed(1).replace(".", ",")}%</td>
-                  <td className="p-2">{row.conRate.toFixed(1).replace(".", ",")}%</td>
-                  <td className="p-2">{row.cac.toLocaleString("id-ID")}</td>
+                  <td className="p-2">{row.resRate.toFixed(0).replace(".", ",")}%</td>
                   <td className="p-2">{row.budgetBulanan}</td>
                   <td className="p-2">{row.budgetMingguan}</td>
                   <td className="p-2">{row.targetCAC}</td>
-                  <td className="p-2">{row.reach}</td>
-                  <td className="p-2">{row.impressions}</td>
-                  <td className="p-2">{row.cpm}</td>
-                  <td className="p-2">{row.click}</td>
-                  <td className="p-2">{row.cpc}</td>
-                  <td className="p-2">{row.cpr}</td>
-                  <td className="p-2">{row.ctr2}</td>
-                  <td className="p-2">{row.reg}</td>
-                  <td className="p-2">{row.sen}</td>
-                  <td className="p-2">{row.omz}</td>
-                  <td className="p-2">{row.cost}</td>
                 </tr>
               ))}
             </tbody>
