@@ -52,7 +52,7 @@ export function transformSheetsData(rawData: any[][]): CampaignData[] {
       const date =
         row[headerIndex["DATE"]] ||
         row[3]; // fallback index if header messed up
-      return date && date.toString().trim() !== "" && date !== "Results / Month";
+      return date && date.toString().trim() !== "" && date !== "Results / Month" && date !== "DATE";
     })
     .map((row) => {
       // Carry down campaign & cabang
@@ -66,7 +66,7 @@ export function transformSheetsData(rawData: any[][]): CampaignData[] {
         lastCabang;
 
       const wamasuk =
-        Number.parseInt(row[headerIndex["WA MASUK / RESULT"]] || row[11] || "0");
+        Number.parseInt(row[headerIndex["WA MASUK / RESULT"]] || row[15] || "0");
       const reservasi =
         Number.parseInt(row[headerIndex["JUMLAH RESERVASI"]] || row[21] || "0");
       const checkIn =
