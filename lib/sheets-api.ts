@@ -52,7 +52,7 @@ export function transformSheetsData(rawData: any[][]): CampaignData[] {
       const date =
         row[headerIndex["DATE"]] ||
         row[3]; // fallback index if header messed up
-      return date && date.toString().trim() !== "" && date !== "Results / Month" && date !== "DATE";
+      return date && date.toString().trim() !== "" && date !== "Results / Month";
     })
     .map((row) => {
       // Carry down campaign & cabang
