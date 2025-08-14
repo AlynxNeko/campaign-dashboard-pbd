@@ -43,11 +43,13 @@ export function DataTable({ data }: DataTableProps) {
     "Cost",
   ]
 
-  const filteredData = data.filter(
-    (item) =>
-      item.campaign.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.cabang.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const filteredData = data
+    .slice(1) // Skip the first row (assumed header)
+    .filter(
+      (item) =>
+        item.campaign.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.cabang.toLowerCase().includes(searchTerm.toLowerCase())
+    )
 
   const exportToCSV = () => {
     const csvContent = [
